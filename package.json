@@ -1,0 +1,17 @@
+{
+  "name": "catbox-zip",
+  "version": "1.0.0",
+  "description": "catbox.moe bulk downloader and zip it",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gimenz",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "compressing": "^1.5.1",
+    "mime-types": "^2.1.35",
+    "winston": "^3.7.2"
+  }
+}
