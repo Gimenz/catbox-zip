@@ -9,3 +9,5 @@ ah im too lazy to wrote docs
 1. install the dependencies
 2. put links on on links.txt
 3. node index
+
+Watch it : https://files.catbox.moe/3jurci.mp4
