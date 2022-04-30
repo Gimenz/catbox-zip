@@ -1,4 +1,5 @@
 # catbox-zip
+Catbox Bulk Downloader
 Download files from catbox and zip it
 
 ah im too lazy to wrote docs

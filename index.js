@@ -1,5 +1,4 @@
 const compressing = require('compressing');
-const tmp = require('os').tmpdir()
 const fs = require('fs');
 const { join } = require('path');
 const { download, Duration } = require('./utils');
@@ -16,10 +15,16 @@ let urls = [...txt.matchAll(/https:\/\/files\.catbox\.moe\/(.+?)\.(\w+|\d+)/gim)
     }
 })
 
+const tmp = 'tmp'
+if (!fs.existsSync(tmp)) {
+    fs.mkdirSync(tmp)
+}
+const compress = false
 let resultPath = 'result.zip'
 let startTime = new Date();
 
 (async () => {
+    logger.INFO(`Found Total ${urls.length} urls`)
     // Download all links to tmp dir
     const files = await Promise.all(
         urls.map(async v => {
@@ -31,23 +36,24 @@ let startTime = new Date();
         })
     )
 
-    logger.INFO(`Compressing All Files to ${resultPath}`);
+    if (compress) {
+        logger.INFO(`Compressing All Files to ${resultPath}`);
 
-    // add files to zip entry
-    files.filter(Boolean).forEach(v => {
-        zip.addEntry(v)
-    });
+        // add files to zip entry
+        files.filter(v => fs.existsSync(v)).forEach(v => {
+            zip.addEntry(v)
+        });
 
+        // save
+        zip.pipe(fs.createWriteStream(resultPath))
+        zip.on('close', () => {
+            // unlink all downloaded files
+            files.filter(v => fs.existsSync(v)).forEach(v => fs.unlinkSync(v))
+        })
+    }
 
-    // save
-    zip.pipe(fs.createWriteStream(resultPath))
-    zip.on('close', () => {
-        var finishTime = new Date()
-        let success = files.filter(x => x).length
-        let time = Duration(finishTime - startTime)
-        logger.SUCCESS(`Compressed ${success} of ${urls.length} files in ${time.minutes > 0 ? time.minutes + 'minutes ' : ''}${time.seconds} seconds`)
-
-        // unlink all downloaded files
-        files.filter(Boolean).forEach(v => fs.unlinkSync(v))
-    })
+    var finishTime = new Date()
+    let success = files.filter(x => x).length
+    let time = Duration(finishTime - startTime)
+    logger.SUCCESS(`${compress ? 'Compressed' : 'Downloaded'} ${success} of ${urls.length} files in ${time.minutes > 0 ? time.minutes + ' minutes, ' : ''}${time.seconds} seconds`)
 })()
