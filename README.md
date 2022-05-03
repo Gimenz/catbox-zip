@@ -1,6 +1,11 @@
 # catbox-zip
 Download files from catbox and zip it
 
+## Supported sites 
+[-] catbox.moe
+[-] streamtape
+[-] doodstream
+
 ## Getting Started
 
 Clone this repository by executing the following command :
@@ -22,6 +27,8 @@ $ yarn install
 ```
 
 Add chatbox links to links.txt :
+
+for example :
 
 ```txt
 Menu berbuka

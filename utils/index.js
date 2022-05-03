@@ -12,14 +12,18 @@ const dots = (str, ratio = 0.50) => {
     return str.length > 50 ? str.slice(0, str.length > 50 ? str.length * ratio : 50) + '...' : str
 }
 
-const download = async (url, savePath) => {
+const delay = async (ms) => await new Promise((resolve) => setTimeout(resolve, ms))
+
+const download = async (url, savePath, options) => {
     logger.INFO(`Downloading "${dots(url)}"`);
     return axios.get(url, {
-        responseType: 'arraybuffer'
+        responseType: 'arraybuffer',
+        ...options
     }).then(res => {
         const ext = MimeType.extension(res.headers['content-type'])
-        fs.writeFileSync(`${savePath}.${ext}`, res.data)
-        logger.SUCCESS(`Downloaded, saved to ${savePath}.${ext}`);
+        savePath = MimeType.lookup(savePath) ? savePath : `${savePath}.${ext}`
+        fs.writeFileSync(savePath, res.data)
+        logger.SUCCESS(`Downloaded, saved to ${savePath}`);
         return `${savePath}.${ext}`
     }).catch(e => {
         logger.ERROR(`Failed to download ${url}`)
@@ -46,7 +50,8 @@ const Duration = (difference) => {
 module.exports = {
     download,
     dots,
-    Duration
+    Duration,
+    delay
 }
 
 //download('https://4.bp.blogspot.com/-dFNTsm4lFuQ/WVIUEq5JGaI/AAAAAAAAZpk/AieZK0aOUuMcUvvhYO-uYq1okNWjtCoYgCEwYBhgL/s1600/DUST_lovablemaria%2B%25281%2529.jpg', './tmp/1')
