@@ -1,17 +1,19 @@
-# catbox-zip
-Download files from catbox and zip it
+# 🐈 catbox-zip
+Download multiple files from catbox (and zip it)
 
-## Supported sites 
-[-] catbox.moe
-[-] streamtape
-[-] doodstream
+## ✔ Supported sites 
+- [x] catbox.moe
+- [x] streamtape
+- [x] doodstream
 
 ## Getting Started
 
 Clone this repository by executing the following command :
 
+###### this must be with git installed
+
 ```bash
-https://github.com/Gimenz/catbox-zip.git
+git clone https://github.com/Gimenz/catbox-zip.git
 ```
 
 Installing the library requires first installing node.js 12 or higher, followed by installing library :
@@ -48,7 +50,7 @@ $ node index.js
 
 ## Video Tutorial
 
-Watch it : [Here!](https://files.catbox.moe/3jurci.mp4)
+Watch it : [Here!](https://files.catbox.moe/3jurci.mp4) or [Here!](https://files.catbox.moe/r8y9q0.mp4)
 
 ## Contributing
 
