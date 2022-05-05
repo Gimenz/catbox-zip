@@ -42,7 +42,6 @@ let resultPath = 'result.zip';
         let urls = [...txt.matchAll(modul.pattern)].map(x => {
             return x[0]
         })
-
         await Promise.all(
             urls.map(async v => {
                 if (v.match(modul.pattern)) {

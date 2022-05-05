@@ -5,6 +5,7 @@ Download multiple files from catbox (and zip it)
 - [x] catbox.moe
 - [x] streamtape
 - [x] doodstream
+- [x] siasky.net
 
 ## Getting Started
 
