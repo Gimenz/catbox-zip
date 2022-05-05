@@ -29,5 +29,4 @@ const pluginLoader = (dir) => {
 }
 
 let plugins = pluginLoader('../lib');
-
 module.exports = plugins;
