@@ -46,7 +46,12 @@ let resultPath = 'result.zip';
             urls.map(async v => {
                 if (v.match(modul.pattern)) {
                     const data = await modul.get(v)
-                    if (data) {
+                    if(Array.isArray(data)){
+                        data.forEach(async (d) => {
+                            const data = await modul.get(d)
+                            dl_links.push(data)
+                        })
+                    } else if (data) {
                         dl_links.push(data)
                     }
                 }
@@ -54,6 +59,7 @@ let resultPath = 'result.zip';
         )
     }
 
+    await delay(3000)
     logger.INFO(`Found Total ${dl_links.length} downloadable urls`)
     await delay(3000)
     logger.INFO(`Downloading...`)
